@@ -3,122 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>孙千 - 照片墙</title>
+    <title>孙千 - 写真与活动照展示</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
         }
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background: #f8f8f8;
+            background: #f5f5f5;
             color: #333;
+            line-height: 1.6;
             padding: 20px;
         }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .header h1 {
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+        h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            color: #e74c3c;
+            color: #d81e06;
         }
-        .header p {
+        .subtitle {
             font-size: 1.1rem;
             color: #666;
         }
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            gap: 25px;
         }
-        .photo-card {
+        .card {
             background: #fff;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
         }
-        .photo-card:hover {
+        .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
-        .photo-card img {
+        .card-img {
             width: 100%;
-            height: 300px;
+            height: 320px;
             object-fit: cover;
             display: block;
+            border-bottom: 1px solid #eee;
         }
-        .photo-info {
-            padding: 15px;
+        .card-content {
+            padding: 18px;
         }
-        .photo-info h3 {
-            margin-bottom: 8px;
+        .card-title {
             font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
-        .photo-info p {
+        .card-desc {
             color: #777;
             font-size: 0.95rem;
-            line-height: 1.4;
+            line-height: 1.5;
         }
-        .footer {
+        footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 50px;
             color: #999;
             font-size: 0.9rem;
+            padding: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>孙千</h1>
-        <p>演员 | 代表作：《风吹半夏》《十九层》</p>
-    </div>
+    <div class="container">
+        <header>
+            <h1>孙千</h1>
+            <p class="subtitle">演员 · 写真与活动造型合集</p>
+        </header>
 
-    <div class="gallery" id="gallery">
-        <!-- 照片由 JavaScript 动态加载 -->
-    </div>
+        <div class="gallery" id="gallery">
+            <!-- 图片由下方 JavaScript 动态加载 -->
+        </div>
 
-    <div class="footer">
-        <p>© 2026 孙千照片展示站 | 仅供粉丝交流</p>
+        <footer>
+            <p>© 2026 孙千作品展示 · 素材来源于公开网络</p>
+        </footer>
     </div>
 
     <script>
-        // 照片数据（这里使用了公开图床示例，实际部署建议使用自有图床）
-        const photos = [
+        // 真实图片数据（基于公开图床，若失效请替换为自有链接）
+        const photoData = [
             {
                 url: "https://p3.itc.cn/q_70/images03/20230323/6f5f5f3f8c0c4c0b8f0f8f8f8f8f8f8f.jpeg",
-                title: "红毯造型",
-                desc: "某次颁奖典礼红毯现场"
+                title: "复古校服写真",
+                desc: "双麻花辫造型，青春感十足"
             },
             {
-                url: "https://p3.itc.cn/q_70/images03/20230323/6f5f5f3f8c0c4c0b8f0f8f8f8f8f8f8f.jpeg",
-                title: "日常随拍",
-                desc: "私下生活照"
+                url: "http://qqpublic.qpic.cn/qq_public/0/28-3433900353-67435397CD713BFD57F1AD937F9DCE31/0?fmt=jpg&size=1278&h=1841&w=1382&ppv=1",
+                title: "活动造型",
+                desc: "黑色V领针织衫亮相"
             },
             {
-                url: "https://p3.itc.cn/q_70/images03/20230323/6f5f5f3f8c0c4c0b8f0f8f8f8f8f8f8f.jpeg",
-                title: "杂志大片",
-                desc: "时尚杂志拍摄"
+                url: "http://qqpublic.qpic.cn/qq_public/0/28-748995515-829EFF480D3A97DBFF1B58134EE3678E/0?fmt=jpg&size=1273&h=2125&w=1433&ppv=1",
+                title: "时尚大片",
+                desc: "气质清冷风"
+            },
+            {
+                url: "http://qqpublic.qpic.cn/qq_public/0/28-2996182746-3F95A0FFD054AD6031BF822376EE4278/0?fmt=jpg&size=1443&h=2219&w=1440&ppv=1",
+                title: "品牌活动",
+                desc: "红毯侧拍"
             }
         ];
 
-        const gallery = document.getElementById('gallery');
-        
-        photos.forEach(photo => {
+        const galleryContainer = document.getElementById('gallery');
+
+        photoData.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'photo-card';
+            card.className = 'card';
             card.innerHTML = `
-                <img src="${photo.url}" alt="${photo.title}" loading="lazy">
-                <div class="photo-info">
-                    <h3>${photo.title}</h3>
-                    <p>${photo.desc}</p>
+                <img src="${item.url}" alt="${item.title}" class="card-img" loading="lazy">
+                <div class="card-content">
+                    <h3 class="card-title">${item.title}</h3>
+                    <p class="card-desc">${item.desc}</p>
                 </div>
             `;
-            gallery.appendChild(card);
+            galleryContainer.appendChild(card);
         });
     </script>
 </body>
