@@ -3,709 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>全能在线计算器</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>孙千 - 照片墙</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
-        
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .calculator-container {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 10px;
-        }
-        
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-        
-        .calculator-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .calculator {
-            flex: 1;
-            min-width: 300px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .display {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: right;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-        }
-        
-        .previous-operand {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            min-height: 28px;
-            word-break: break-all;
-        }
-        
-        .current-operand {
-            font-size: 3rem;
-            color: white;
-            font-weight: 500;
-            word-break: break-all;
-        }
-        
-        .buttons-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-        
-        button {
-            border: none;
-            padding: 20px 10px;
-            font-size: 1.4rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
-        
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        button:active {
-            transform: translateY(1px);
-        }
-        
-        .number-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-        
-        .number-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .operator-btn {
-            background: rgba(255, 193, 7, 0.8);
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f8f8f8;
             color: #333;
+            padding: 20px;
         }
-        
-        .operator-btn:hover {
-            background: rgba(255, 193, 7, 0.9);
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
         }
-        
-        .equals-btn {
-            background: rgba(76, 175, 80, 0.9);
-            color: white;
-        }
-        
-        .equals-btn:hover {
-            background: rgba(76, 175, 80, 1);
-        }
-        
-        .clear-btn, .delete-btn {
-            background: rgba(244, 67, 54, 0.8);
-            color: white;
-        }
-        
-        .clear-btn:hover, .delete-btn:hover {
-            background: rgba(244, 67, 54, 0.9);
-        }
-        
-        .span-two {
-            grid-column: span 2;
-        }
-        
-        .scientific-btns {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 12px;
-        }
-        
-        .scientific-btn {
-            background: rgba(156, 39, 176, 0.8);
-            color: white;
-            font-size: 1.2rem;
-            padding: 15px 5px;
-        }
-        
-        .scientific-btn:hover {
-            background: rgba(156, 39, 176, 0.9);
-        }
-        
-        .history-panel {
-            flex: 1;
-            min-width: 300px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .history-header h2 {
-            font-size: 1.8rem;
-        }
-        
-        .clear-history-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            border-radius: 8px;
-        }
-        
-        .clear-history-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .history-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        
-        .history-item {
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+        .header h1 {
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            border-left: 4px solid rgba(255, 193, 7, 0.8);
+            color: #e74c3c;
         }
-        
-        .history-expression {
+        .header p {
             font-size: 1.1rem;
-            margin-bottom: 5px;
+            color: #666;
         }
-        
-        .history-result {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #FFC107;
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        
-        .history-empty {
-            text-align: center;
-            padding: 40px 20px;
-            opacity: 0.7;
+        .photo-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-        
-        footer {
-            text-align: center;
-            color: white;
-            opacity: 0.8;
-            font-size: 0.9rem;
-            margin-top: 20px;
+        .photo-card:hover {
+            transform: translateY(-5px);
         }
-        
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        .photo-info {
+            padding: 15px;
+        }
+        .photo-info h3 {
+            margin-bottom: 8px;
             font-size: 1.2rem;
         }
-        
-        @media (max-width: 768px) {
-            .calculator-wrapper {
-                flex-direction: column;
-            }
-            
-            .calculator, .history-panel {
-                min-width: 100%;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .current-operand {
-                font-size: 2.5rem;
-            }
-            
-            button {
-                padding: 18px 5px;
-                font-size: 1.2rem;
-            }
+        .photo-info p {
+            color: #777;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
-        
-        /* 暗色主题 */
-        .dark-theme {
-            background: linear-gradient(135deg, #141E30 0%, #243B55 100%);
-        }
-        
-        .dark-theme .calculator,
-        .dark-theme .history-panel {
-            background: rgba(0, 0, 0, 0.3);
-        }
-        
-        .dark-theme .display {
-            background: rgba(0, 0, 0, 0.5);
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #999;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
-    </button>
-    
-    <div class="calculator-container">
-        <header>
-            <h1><i class="fas fa-calculator"></i> 全能在线计算器</h1>
-            <p class="tagline">支持基本运算、科学计算与历史记录</p>
-        </header>
-        
-        <div class="calculator-wrapper">
-            <div class="calculator">
-                <div class="display">
-                    <div class="previous-operand" id="previousOperand"></div>
-                    <div class="current-operand" id="currentOperand">0</div>
-                </div>
-                
-                <div class="buttons-grid">
-                    <button class="clear-btn span-two" data-action="clear">C</button>
-                    <button class="delete-btn" data-action="delete">DEL</button>
-                    <button class="operator-btn" data-operation="÷">÷</button>
-                    
-                    <button class="number-btn" data-number="7">7</button>
-                    <button class="number-btn" data-number="8">8</button>
-                    <button class="number-btn" data-number="9">9</button>
-                    <button class="operator-btn" data-operation="×">×</button>
-                    
-                    <button class="number-btn" data-number="4">4</button>
-                    <button class="number-btn" data-number="5">5</button>
-                    <button class="number-btn" data-number="6">6</button>
-                    <button class="operator-btn" data-operation="-">-</button>
-                    
-                    <button class="number-btn" data-number="1">1</button>
-                    <button class="number-btn" data-number="2">2</button>
-                    <button class="number-btn" data-number="3">3</button>
-                    <button class="operator-btn" data-operation="+">+</button>
-                    
-                    <button class="number-btn span-two" data-number="0">0</button>
-                    <button class="number-btn" data-number=".">.</button>
-                    <button class="equals-btn" data-action="equals">=</button>
-                </div>
-                
-                <div class="scientific-btns">
-                    <button class="scientific-btn" data-scientific="sin">sin</button>
-                    <button class="scientific-btn" data-scientific="cos">cos</button>
-                    <button class="scientific-btn" data-scientific="tan">tan</button>
-                    <button class="scientific-btn" data-scientific="log">log</button>
-                    <button class="scientific-btn" data-scientific="ln">ln</button>
-                    <button class="scientific-btn" data-scientific="sqrt">√</button>
-                    <button class="scientific-btn" data-scientific="pi">π</button>
-                    <button class="scientific-btn" data-scientific="e">e</button>
-                    <button class="scientific-btn" data-scientific="power">x²</button>
-                </div>
-            </div>
-            
-            <div class="history-panel">
-                <div class="history-header">
-                    <h2><i class="fas fa-history"></i> 计算历史</h2>
-                    <button class="clear-history-btn" id="clearHistoryBtn">清空历史</button>
-                </div>
-                <div class="history-list" id="historyList">
-                    <div class="history-empty" id="historyEmpty">
-                        <i class="fas fa-history fa-2x"></i>
-                        <p>暂无计算记录</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <footer>
-            <p>© 2023 全能在线计算器 | 支持基本四则运算、科学计算与历史记录功能</p>
-        </footer>
+    <div class="header">
+        <h1>孙千</h1>
+        <p>演员 | 代表作：《风吹半夏》《十九层》</p>
+    </div>
+
+    <div class="gallery" id="gallery">
+        <!-- 照片由 JavaScript 动态加载 -->
+    </div>
+
+    <div class="footer">
+        <p>© 2026 孙千照片展示站 | 仅供粉丝交流</p>
     </div>
 
     <script>
-        class Calculator {
-            constructor(previousOperandElement, currentOperandElement) {
-                this.previousOperandElement = previousOperandElement;
-                this.currentOperandElement = currentOperandElement;
-                this.clear();
-                this.loadHistory();
+        // 照片数据（这里使用了公开图床示例，实际部署建议使用自有图床）
+        const photos = [
+            {
+                url: "https://p3.itc.cn/q_70/images03/20230323/6f5f5f3f8c0c4c0b8f0f8f8f8f8f8f8f.jpeg",
+                title: "红毯造型",
+                desc: "某次颁奖典礼红毯现场"
+            },
+            {
+                url: "https://p3.itc.cn/q_70/images03/20230323/6f5f5f3f8c0c4c0b8f0f8f8f8f8f8f8f.jpeg",
+                title: "日常随拍",
+                desc: "私下生活照"
+            },
+            {
+                url: "https://p3.itc.cn/q_70/images03/20230323/6f5f5f3f8c0c4c0b8f0f8f8f8f8f8f8f.jpeg",
+                title: "杂志大片",
+                desc: "时尚杂志拍摄"
             }
-            
-            clear() {
-                this.currentOperand = '0';
-                this.previousOperand = '';
-                this.operation = undefined;
-                this.resetScreen = false;
-            }
-            
-            delete() {
-                if (this.currentOperand === '0' || this.currentOperand.length === 1) {
-                    this.currentOperand = '0';
-                } else {
-                    this.currentOperand = this.currentOperand.slice(0, -1);
-                }
-            }
-            
-            appendNumber(number) {
-                if (this.resetScreen) {
-                    this.currentOperand = '';
-                    this.resetScreen = false;
-                }
-                
-                if (number === '.' && this.currentOperand.includes('.')) return;
-                
-                if (this.currentOperand === '0' && number !== '.') {
-                    this.currentOperand = number;
-                } else {
-                    this.currentOperand += number;
-                }
-            }
-            
-            chooseOperation(operation) {
-                if (this.currentOperand === '0' && this.previousOperand === '') return;
-                
-                if (this.previousOperand !== '') {
-                    this.compute();
-                }
-                
-                this.operation = operation;
-                this.previousOperand = this.currentOperand;
-                this.currentOperand = '0';
-            }
-            
-            compute() {
-                let computation;
-                const prev = parseFloat(this.previousOperand);
-                const current = parseFloat(this.currentOperand);
-                
-                if (isNaN(prev) || isNaN(current)) return;
-                
-                switch (this.operation) {
-                    case '+':
-                        computation = prev + current;
-                        break;
-                    case '-':
-                        computation = prev - current;
-                        break;
-                    case '×':
-                        computation = prev * current;
-                        break;
-                    case '÷':
-                        if (current === 0) {
-                            alert("错误：不能除以零！");
-                            return;
-                        }
-                        computation = prev / current;
-                        break;
-                    default:
-                        return;
-                }
-                
-                this.saveToHistory(`${this.previousOperand} ${this.operation} ${this.currentOperand} = ${computation}`);
-                
-                this.currentOperand = computation.toString();
-                this.operation = undefined;
-                this.previousOperand = '';
-                this.resetScreen = true;
-            }
-            
-            scientificFunction(func) {
-                const current = parseFloat(this.currentOperand);
-                if (isNaN(current)) return;
-                
-                let result;
-                let expression = '';
-                
-                switch (func) {
-                    case 'sin':
-                        result = Math.sin(current * Math.PI / 180);
-                        expression = `sin(${current}°)`;
-                        break;
-                    case 'cos':
-                        result = Math.cos(current * Math.PI / 180);
-                        expression = `cos(${current}°)`;
-                        break;
-                    case 'tan':
-                        result = Math.tan(current * Math.PI / 180);
-                        expression = `tan(${current}°)`;
-                        break;
-                    case 'log':
-                        if (current <= 0) {
-                            alert("错误：log函数的参数必须大于0！");
-                            return;
-                        }
-                        result = Math.log10(current);
-                        expression = `log(${current})`;
-                        break;
-                    case 'ln':
-                        if (current <= 0) {
-                            alert("错误：ln函数的参数必须大于0！");
-                            return;
-                        }
-                        result = Math.log(current);
-                        expression = `ln(${current})`;
-                        break;
-                    case 'sqrt':
-                        if (current < 0) {
-                            alert("错误：不能对负数开平方！");
-                            return;
-                        }
-                        result = Math.sqrt(current);
-                        expression = `√(${current})`;
-                        break;
-                    case 'pi':
-                        result = Math.PI;
-                        expression = 'π';
-                        break;
-                    case 'e':
-                        result = Math.E;
-                        expression = 'e';
-                        break;
-                    case 'power':
-                        result = current * current;
-                        expression = `(${current})²`;
-                        break;
-                }
-                
-                this.saveToHistory(`${expression} = ${result}`);
-                this.currentOperand = result.toString();
-                this.resetScreen = true;
-                this.updateDisplay();
-            }
-            
-            saveToHistory(calculation) {
-                let history = JSON.parse(localStorage.getItem('calculatorHistory')) || [];
-                history.unshift({
-                    expression: calculation.split('=')[0].trim(),
-                    result: calculation.split('=')[1].trim(),
-                    timestamp: new Date().toLocaleString()
-                });
-                
-                if (history.length > 20) history = history.slice(0, 20);
-                localStorage.setItem('calculatorHistory', JSON.stringify(history));
-                this.displayHistory();
-            }
-            
-            loadHistory() {
-                this.displayHistory();
-            }
-            
-            displayHistory() {
-                const historyList = document.getElementById('historyList');
-                const historyEmpty = document.getElementById('historyEmpty');
-                const history = JSON.parse(localStorage.getItem('calculatorHistory')) || [];
-                
-                if (history.length === 0) {
-                    historyEmpty.style.display = 'block';
-                    historyList.innerHTML = '<div class="history-empty" id="historyEmpty"><i class="fas fa-history fa-2x"></i><p>暂无计算记录</p></div>';
-                    return;
-                }
-                
-                historyEmpty.style.display = 'none';
-                historyList.innerHTML = history.map(item => `
-                    <div class="history-item">
-                        <div class="history-expression">${item.expression}</div>
-                        <div class="history-result">= ${item.result}</div>
-                        <div class="history-time" style="font-size:0.8rem; opacity:0.7; margin-top:5px;">${item.timestamp}</div>
-                    </div>
-                `).join('');
-            }
-            
-            clearHistory() {
-                localStorage.removeItem('calculatorHistory');
-                this.displayHistory();
-            }
-            
-            getDisplayNumber(number) {
-                const stringNumber = number.toString();
-                const integerDigits = parseFloat(stringNumber.split('.')[0]);
-                const decimalDigits = stringNumber.split('.')[1];
-                
-                let integerDisplay;
-                
-                if (isNaN(integerDigits)) {
-                    integerDisplay = '';
-                } else {
-                    integerDisplay = integerDigits.toLocaleString('zh-CN', {
-                        maximumFractionDigits: 0
-                    });
-                }
-                
-                if (decimalDigits != null) {
-                    return `${integerDisplay}.${decimalDigits}`;
-                } else {
-                    return integerDisplay;
-                }
-            }
-            
-            updateDisplay() {
-                this.currentOperandElement.innerText = this.getDisplayNumber(this.currentOperand);
-                
-                if (this.operation != null) {
-                    this.previousOperandElement.innerText = 
-                        `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
-                } else {
-                    this.previousOperandElement.innerText = '';
-                }
-            }
-        }
+        ];
+
+        const gallery = document.getElementById('gallery');
         
-        // 初始化计算器
-        const previousOperandElement = document.getElementById('previousOperand');
-        const currentOperandElement = document.getElementById('currentOperand');
-        const calculator = new Calculator(previousOperandElement, currentOperandElement);
-        
-        // 数字按钮事件
-        document.querySelectorAll('[data-number]').forEach(button => {
-            button.addEventListener('click', () => {
-                calculator.appendNumber(button.getAttribute('data-number'));
-                calculator.updateDisplay();
-            });
+        photos.forEach(photo => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.innerHTML = `
+                <img src="${photo.url}" alt="${photo.title}" loading="lazy">
+                <div class="photo-info">
+                    <h3>${photo.title}</h3>
+                    <p>${photo.desc}</p>
+                </div>
+            `;
+            gallery.appendChild(card);
         });
-        
-        // 操作符按钮事件
-        document.querySelectorAll('[data-operation]').forEach(button => {
-            button.addEventListener('click', () => {
-                calculator.chooseOperation(button.getAttribute('data-operation'));
-                calculator.updateDisplay();
-            });
-        });
-        
-        // 科学计算按钮事件
-        document.querySelectorAll('[data-scientific]').forEach(button => {
-            button.addEventListener('click', () => {
-                calculator.scientificFunction(button.getAttribute('data-scientific'));
-                calculator.updateDisplay();
-            });
-        });
-        
-        // 等号按钮
-        document.querySelector('[data-action="equals"]').addEventListener('click', () => {
-            calculator.compute();
-            calculator.updateDisplay();
-        });
-        
-        // 清除按钮
-        document.querySelector('[data-action="clear"]').addEventListener('click', () => {
-            calculator.clear();
-            calculator.updateDisplay();
-        });
-        
-        // 删除按钮
-        document.querySelector('[data-action="delete"]').addEventListener('click', () => {
-            calculator.delete();
-            calculator.updateDisplay();
-        });
-        
-        // 清空历史按钮
-        document.getElementById('clearHistoryBtn').addEventListener('click', () => {
-            calculator.clearHistory();
-        });
-        
-        // 主题切换
-        const themeToggle = document.getElementById('themeToggle');
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('dark-theme')) {
-                icon.className = 'fas fa-sun';
-            } else {
-                icon.className = 'fas fa-moon';
-            }
-        });
-        
-        // 键盘支持
-        document.addEventListener('keydown', event => {
-            if (event.key >= 0 && event.key <= 9) {
-                calculator.appendNumber(event.key);
-                calculator.updateDisplay();
-            } else if (event.key === '.') {
-                calculator.appendNumber('.');
-                calculator.updateDisplay();
-            } else if (event.key === '+') {
-                calculator.chooseOperation('+');
-                calculator.updateDisplay();
-            } else if (event.key === '-') {
-                calculator.chooseOperation('-');
-                calculator.updateDisplay();
-            } else if (event.key === '*') {
-                calculator.chooseOperation('×');
-                calculator.updateDisplay();
-            } else if (event.key === '/') {
-                event.preventDefault();
-                calculator.chooseOperation('÷');
-                calculator.updateDisplay();
-            } else if (event.key === 'Enter' || event.key === '=') {
-                event.preventDefault();
-                calculator.compute();
-                calculator.updateDisplay();
-            } else if (event.key === 'Escape') {
-                calculator.clear();
-                calculator.updateDisplay();
-            } else if (event.key === 'Backspace') {
-                calculator.delete();
-                calculator.updateDisplay();
-            }
-        });
-        
-        // 初始化显示
-        calculator.updateDisplay();
     </script>
 </body>
 </html>
